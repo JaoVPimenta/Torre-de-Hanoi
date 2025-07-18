@@ -21,7 +21,8 @@ public class Desafio {
         }
 
         int pecaEscolhida = 0;
-        int torreEscolhida = 0;
+        int torreAtual = 0;
+        int torreDestino = 0;
 
         while (true) {
             
@@ -38,9 +39,52 @@ public class Desafio {
                 }
 
                 pecaEscolhida = leia.nextInt();
+
                 if (pecaEscolhida > tamanhoTorre || pecaEscolhida <= 0) {
                     System.out.println("Essa peça não existe!");
                 } else{
+                    break;
+                }
+            }
+
+            // verifica se a peça está na torre atual
+            while (true) {
+                boolean estaNaTorre = false;
+                
+                System.out.println("Informe a torre em que se encontra esta peça");
+                torreAtual = leia.nextInt();
+
+                switch (torreAtual) {
+                    case 1:
+                        for (int i = 0; i < torre1.length; i++){
+                            
+                            if (pecaEscolhida == torre1[i]){
+                                estaNaTorre = true;
+                            }
+                        }
+  
+                    case 2:
+                        for (int i = 0; i < torre2.length; i++){
+                            
+                            if (pecaEscolhida == torre2[i]){
+                                estaNaTorre = true;
+                            }
+                        }
+
+                    case 3:
+                        for (int i = 0; i < torre3.length; i++){
+                            
+                            if (pecaEscolhida == torre3[i]){
+                                estaNaTorre = true;
+                            }
+                        }
+
+                    default:
+                        System.out.println("Peça não encontrada!");
+                        break;
+                }
+                
+                if (estaNaTorre == true) {
                     break;
                 }
             }
@@ -49,17 +93,15 @@ public class Desafio {
             while (true) {
                 
                 System.out.println("Escolha o torre que deseja mover a peça:\n1\n2\n3");
-                torreEscolhida = leia.nextInt();
+                torreDestino = leia.nextInt();
 
-                if (torreEscolhida > 3 || torreEscolhida <= 0) {
+                if (torreDestino > 3 || torreDestino <= 0) {
                     System.out.println("Essa torre não existe!");
                 } else{
                     break;
                 }
             }
             
-
-
         }
         
     }
@@ -77,7 +119,10 @@ public class Desafio {
     }
 
     // função que faz a jogada
-    public static void jogada(int valor) {
+
+    // O usuário irá informar a torre em que se encontra a peça e para onde deseja mover
+    public static void jogada(int valor, int[] tAtual, int[] tDestino) {
+        
         
     }
 
@@ -87,3 +132,4 @@ public class Desafio {
     // }
 
 }
+
