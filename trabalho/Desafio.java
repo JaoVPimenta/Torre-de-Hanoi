@@ -21,7 +21,10 @@ public class Desafio {
         }
 
         int pecaEscolhida = 0;
+
         int torreAtual = 0;
+        int vetorTA[] = new int[tamanhoTorre];
+
         int torreDestino = 0;
 
         while (true) {
@@ -61,6 +64,8 @@ public class Desafio {
                             if (pecaEscolhida == torre1[i]){
                                 estaNaTorre = true;
                             }
+
+                            vetorTA[i] = torre1[i];
                         }
   
                     case 2:
@@ -69,6 +74,8 @@ public class Desafio {
                             if (pecaEscolhida == torre2[i]){
                                 estaNaTorre = true;
                             }
+
+                            vetorTA[i] = torre2[i];
                         }
 
                     case 3:
@@ -77,10 +84,17 @@ public class Desafio {
                             if (pecaEscolhida == torre3[i]){
                                 estaNaTorre = true;
                             }
+
+                            vetorTA[i] = torre3[i];
                         }
 
                     default:
                         System.out.println("Peça não encontrada!");
+
+                        for (int i = 0; i < vetorTA.length; i++){
+                            vetorTA[i] = 0;
+                        }
+
                         break;
                 }
                 
@@ -95,10 +109,19 @@ public class Desafio {
                 System.out.println("Escolha o torre que deseja mover a peça:\n1\n2\n3");
                 torreDestino = leia.nextInt();
 
-                if (torreDestino > 3 || torreDestino <= 0) {
-                    System.out.println("Essa torre não existe!");
-                } else{
-                    break;
+                switch (torreDestino) {
+                    case 1:
+                        jogada(pecaEscolhida, vetorTA, torre1);
+                        break;
+                    case 2:
+                        jogada(pecaEscolhida, vetorTA, torre2);
+                        break;
+                    case 3:
+                        jogada(pecaEscolhida, vetorTA, torre3);
+                        break;
+                    default:
+                        System.out.println("Essa torre não existe!");
+                        break;
                 }
             }
             
@@ -121,10 +144,9 @@ public class Desafio {
     // função que faz a jogada
 
     // O usuário irá informar a torre em que se encontra a peça e para onde deseja mover
-    public static void jogada(int valor, int[] tAtual, int[] tDestino) {
+    // public static int jogada(int valor, int[] tAtual, int[] tDestino) {
         
-        
-    }
+    // }
 
     // função que verifica se o jogador ganhou
     // public static boolean vitoria(int[] torre) {
@@ -132,4 +154,3 @@ public class Desafio {
     // }
 
 }
-
