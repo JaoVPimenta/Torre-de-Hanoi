@@ -9,29 +9,32 @@ public class Desafio {
         System.out.println("Informe o tamanho da torre: ");
         int tamanhoTorre = leia.nextInt();
 
-        int torre1[] = new int[tamanhoTorre];
-        int torre2[] = new int[tamanhoTorre];
-        int torre3[] = new int[tamanhoTorre];
+        int torre1[] = new int[tamanhoTorre + 1];
+        int torre2[] = new int[tamanhoTorre + 1];
+        int torre3[] = new int[tamanhoTorre + 1];
         
         System.out.println();
 
         // Atribuirá valores da torre1 de acordo com o tamanho
         for (int i = 0; i < torre1.length; i++){
-            torre1[i] = i+1;
+            torre1[i] = i;
         }
 
         int pecaEscolhida = 0;
 
         int torreAtual = 0;
-        int vetorTA[] = new int[tamanhoTorre];
+        int vetorTA[] = new int[tamanhoTorre + 1];
 
         int torreDestino = 0;
+
+        int[][] resultadoFinalJogada;
 
         while (true) {
             
             mostraVetor(torre1, torre2, torre3);
 
             System.out.println("Faça sua jogada!");
+            System.out.println();
 
             // verifica se a peça existe
             while (true) {
@@ -42,89 +45,98 @@ public class Desafio {
                 }
 
                 pecaEscolhida = leia.nextInt();
+                System.out.println();
+                System.out.println();
 
                 if (pecaEscolhida > tamanhoTorre || pecaEscolhida <= 0) {
                     System.out.println("Essa peça não existe!");
+                    System.out.println();
+                    System.out.println();
                 } else{
                     break;
                 }
             }
 
-            // verifica se a peça está na torre atual
-            while (true) {
-                boolean estaNaTorre = false;
-                
-                System.out.println("Informe a torre em que se encontra esta peça");
-                torreAtual = leia.nextInt();
+            // identifica automaticamente a torre atual da peça escolhida
+            torreAtual = encontrarTorreDaPeca(pecaEscolhida, torre1, torre2, torre3);
 
-                switch (torreAtual) {
-                    case 1:
-                        for (int i = 0; i < torre1.length; i++){
-                            
-                            if (pecaEscolhida == torre1[i]){
-                                estaNaTorre = true;
-                            }
+            if (torreAtual == -1) {
+                System.out.println("A peça não está em nenhuma torre!");
+                System.out.println();
+                continue;
+            }
 
-                            vetorTA[i] = torre1[i];
-                        }
-  
-                    case 2:
-                        for (int i = 0; i < torre2.length; i++){
-                            
-                            if (pecaEscolhida == torre2[i]){
-                                estaNaTorre = true;
-                            }
-
-                            vetorTA[i] = torre2[i];
-                        }
-
-                    case 3:
-                        for (int i = 0; i < torre3.length; i++){
-                            
-                            if (pecaEscolhida == torre3[i]){
-                                estaNaTorre = true;
-                            }
-
-                            vetorTA[i] = torre3[i];
-                        }
-
-                    default:
-                        System.out.println("Peça não encontrada!");
-
-                        for (int i = 0; i < vetorTA.length; i++){
-                            vetorTA[i] = 0;
-                        }
-
-                        break;
-                }
-                
-                if (estaNaTorre == true) {
+            switch (torreAtual) {
+                case 1:
+                    for (int i = 0; i < torre1.length; i++) {
+                        vetorTA[i] = torre1[i];
+                    }
                     break;
-                }
+                case 2:
+                    for (int i = 0; i < torre2.length; i++) {
+                        vetorTA[i] = torre2[i];
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < torre3.length; i++) {
+                        vetorTA[i] = torre3[i];
+                    }
+                    break;
             }
 
             // verifica se a torre existe
             while (true) {
                 
                 System.out.println("Escolha o torre que deseja mover a peça:\n1\n2\n3");
+                System.out.println();
+                System.out.println();
+                
                 torreDestino = leia.nextInt();
+                System.out.println();
+                System.out.println();
 
                 switch (torreDestino) {
                     case 1:
-                        jogada(pecaEscolhida, vetorTA, torre1);
+                        resultadoFinalJogada = jogada(pecaEscolhida, vetorTA, torre1);
                         break;
                     case 2:
-                        jogada(pecaEscolhida, vetorTA, torre2);
+                        resultadoFinalJogada = jogada(pecaEscolhida, vetorTA, torre2);
                         break;
                     case 3:
-                        jogada(pecaEscolhida, vetorTA, torre3);
+                        resultadoFinalJogada = jogada(pecaEscolhida, vetorTA, torre3);
                         break;
                     default:
                         System.out.println("Essa torre não existe!");
-                        break;
+                        System.out.println();
+                        System.out.println();
+                        continue;
                 }
+
+                break;
             }
+
+            // atribuindo o resultado da função jogada para as torres
+            if (torreAtual == 1) {
+                torre1 = resultadoFinalJogada[0];
             
+            } else if (torreAtual == 2) {
+                torre2 = resultadoFinalJogada[0];
+            
+            } else if (torreAtual == 3) {
+                torre3 = resultadoFinalJogada[0];
+            }
+
+            
+            if (torreDestino == 1) {
+                torre1 = resultadoFinalJogada[1];
+            
+            } else if (torreDestino == 2) {
+                torre2 = resultadoFinalJogada[1];
+            
+            } else if (torreDestino == 3) {
+                torre3 = resultadoFinalJogada[1];
+            }
+
         }
         
     }
@@ -141,16 +153,54 @@ public class Desafio {
         }
     }
 
-    // função que faz a jogada
+    //função que faz a jogada
+    public static int[][] jogada(int valor, int[] tAtual, int[] tDestino) {
 
-    // O usuário irá informar a torre em que se encontra a peça e para onde deseja mover
-    // public static int jogada(int valor, int[] tAtual, int[] tDestino) {
+        // tirada da peça da torre atual
+        for (int i = 0; i < tAtual.length; i++){
+            
+            if (valor == tAtual[i] && (i == 0 || tAtual[i-1] == 0)){  // corrigi para evitar index negativo
+                
+                tAtual[i] = 0;
+            }
+        }
+
+        // adição da peça na torre destino
+        for (int i = tDestino.length - 1; i >= 0; i--){
+
+            if (i < tDestino.length - 1 && tDestino[i + 1] == 0){
+
+                tDestino[i+1] = valor;
+                break;
+            }
+        }
         
-    // }
+        return new int[][] {tAtual, tDestino};
+    }
 
-    // função que verifica se o jogador ganhou
-    // public static boolean vitoria(int[] torre) {
-        
-    // }
+    // função para encontrar a torre que contém a peça
+    public static int encontrarTorreDaPeca(int peca, int[] t1, int[] t2, int[] t3) {
+        for (int i = 0; i < t1.length; i++) {
+            
+            if (t1[i] == peca) {
+                return 1;
+            }
+        }
 
+        for (int i = 0; i < t2.length; i++) {
+            
+            if (t2[i] == peca) {
+                return 2;
+            }
+        }
+
+        for (int i = 0; i < t3.length; i++) {
+            
+            if (t3[i] == peca) {
+                return 3;
+            }
+        }
+
+        return -1;
+    }
 }
