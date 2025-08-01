@@ -159,7 +159,6 @@ public class Desafio {
         // tirada da peça da torre atual
         for (int i = 0; i < tAtual.length; i++){
             
-            if (valor == tAtual[i] && (i == 0 || tAtual[i-1] == 0)){  // corrigi para evitar index negativo
             if (valor == tAtual[i] && (i == 0 || tAtual[i-1] == 0)){ 
                 
                 tAtual[i] = 0;
