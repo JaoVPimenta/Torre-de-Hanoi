@@ -116,25 +116,33 @@ public class Desafio {
             }
 
             // atribuindo o resultado da função jogada para as torres
-            if (torreAtual == 1) {
-                torre1 = resultadoFinalJogada[0];
-            
-            } else if (torreAtual == 2) {
-                torre2 = resultadoFinalJogada[0];
-            
-            } else if (torreAtual == 3) {
-                torre3 = resultadoFinalJogada[0];
+            switch (torreAtual) {
+                case 1:
+                    torre1 = resultadoFinalJogada[0];
+                    break;
+                
+                case 2:
+                    torre2 = resultadoFinalJogada[0];
+                    break;
+
+                case 3:
+                    torre3 = resultadoFinalJogada[0];
+                    break;
             }
 
             
-            if (torreDestino == 1) {
-                torre1 = resultadoFinalJogada[1];
-            
-            } else if (torreDestino == 2) {
-                torre2 = resultadoFinalJogada[1];
-            
-            } else if (torreDestino == 3) {
-                torre3 = resultadoFinalJogada[1];
+            switch (torreDestino) {
+                case 1:
+                    torre1 = resultadoFinalJogada[1];
+                    break;
+                
+                case 2:
+                    torre2 = resultadoFinalJogada[1];
+                    break;
+
+                case 3:
+                    torre3 = resultadoFinalJogada[1];
+                    break;
             }
 
         }
@@ -154,14 +162,32 @@ public class Desafio {
     }
 
     //função que faz a jogada
-    public static int[][] jogada(int valor, int[] tAtual, int[] tDestino) {
+    public static int[][] jogada(int valor, int[] torreOrigem, int[] torreDestino) {
 
+        // cópia dos vetores de origem e destino
+        int[] tAtual = new int[torreOrigem.length];
+        
+        for (int i = 0; i < torreOrigem.length; i++) {
+            
+            tAtual[i] = torreOrigem[i];
+        }
+
+        
+        int[] tDestino = new int[torreDestino.length];
+        
+        for (int i = 0; i < torreDestino.length; i++) {
+            
+            tDestino[i] = torreDestino[i];
+        }
+
+        
         // tirada da peça da torre atual
         for (int i = 0; i < tAtual.length; i++){
             
-            if (valor == tAtual[i] && (i == 0 || tAtual[i-1] == 0)){ 
+            if (valor == tAtual[i] && (i == 0 || tAtual[i-1] == 0)){  
                 
                 tAtual[i] = 0;
+                break;
             }
         }
 
