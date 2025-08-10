@@ -6,6 +6,8 @@ public class Desafio {
     public static void main(String[] args) {
         Scanner leia = new Scanner(System.in);
 
+        System.err.println("Bem vindo ao jogo Torre de Hanoi!\nSeu objetivo é mover as peças da torre 1 para a torre 3.\nBoa sorte!");
+
         System.out.println("Informe o tamanho da torre: ");
         int tamanhoTorre = leia.nextInt();
 
@@ -29,9 +31,17 @@ public class Desafio {
 
         int[][] resultadoFinalJogada;
 
+        // looping principal
         while (true) {
             
             mostraVetor(torre1, torre2, torre3);
+            
+            if (verificaVitoria(torre3) == true){
+
+                System.out.println("Parabens, você venceu o jogo!!!");
+                break;
+            }
+
 
             System.out.println("Faça sua jogada!");
             System.out.println();
@@ -41,6 +51,7 @@ public class Desafio {
               
                 System.out.println("Escolha a peça que deseja mover:");
                 for (int p = 1; p <= tamanhoTorre; p++){
+                    
                     System.out.printf("peça %d\n", p);
                 }
 
@@ -49,6 +60,7 @@ public class Desafio {
                 System.out.println();
 
                 if (pecaEscolhida > tamanhoTorre || pecaEscolhida <= 0) {
+                    
                     System.out.println("Essa peça não existe!");
                     System.out.println();
                     System.out.println();
@@ -61,6 +73,7 @@ public class Desafio {
             torreAtual = encontrarTorreDaPeca(pecaEscolhida, torre1, torre2, torre3);
 
             if (torreAtual == -1) {
+                
                 System.out.println("A peça não está em nenhuma torre!");
                 System.out.println();
                 continue;
@@ -206,6 +219,7 @@ public class Desafio {
 
     // função para encontrar a torre que contém a peça
     public static int encontrarTorreDaPeca(int peca, int[] t1, int[] t2, int[] t3) {
+        
         for (int i = 0; i < t1.length; i++) {
             
             if (t1[i] == peca) {
@@ -228,5 +242,21 @@ public class Desafio {
         }
 
         return -1;
+    }
+
+    // // função que verifica a vitória
+    public static boolean verificaVitoria(int[] t3) {
+        
+        boolean verificador = true;
+
+        for (int i = 0; i < t3.length; i++){
+            
+            if (i != t3[i]){
+
+                verificador = false;
+            }
+        }
+
+        return verificador;
     }
 }
